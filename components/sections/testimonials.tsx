@@ -23,7 +23,7 @@ export default function TestimonialsSection() {
   ]
 
   return (
-    <section className="bg-white py-20 md:py-28">
+    <section id="stories" className="bg-white py-20 md:py-28">
       <div className="max-w-6xl mx-auto px-6 lg:px-10">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <p className="font-sans text-sm font-semibold text-secondary uppercase tracking-widest mb-3">Early Feedback</p>
