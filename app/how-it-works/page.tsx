@@ -162,7 +162,7 @@ export default function HowItWorksPage() {
                 </p>
                 {[
                   { time: "Day 1", event: "Download, onboard, share app with parent over video call" },
-                  { time: "Week 1", event: "Review AI care plan — impressed by Nigerian cultural fit" },
+                  { time: "Week 1", event: "Review AI care plan, impressed by Nigerian cultural fit" },
                   { time: "Week 3", event: "First predictive alert catches a missed medication pattern" },
                   { time: "Month 2", event: "Sunday calls shift from anxious check-ins to meaningful conversations" },
                   { time: "Month 6+", event: "Famva is part of the daily routine, like checking email" },
