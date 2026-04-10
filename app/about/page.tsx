@@ -9,7 +9,7 @@ const values = [
     icon: Heart,
     title: "Human First",
     description:
-      "Every feature is built around real people — not data points. We design for warmth, accessibility, and emotional connection.",
+      "Every feature is built around real people, not data points. We design for warmth, accessibility, and emotional connection.",
   },
   {
     icon: Target,
@@ -46,23 +46,15 @@ export default function AboutPage() {
       <Navbar />
       <main>
         {/* Hero */}
-        <section className="bg-primary pt-32 pb-20 md:pb-28">
-          <div
-            className="absolute inset-0 opacity-[0.04] pointer-events-none"
-            style={{
-              backgroundImage: `radial-gradient(circle, #FF2E83 1px, transparent 1px)`,
-              backgroundSize: "40px 40px",
-            }}
-            aria-hidden="true"
-          />
+        <section className="bg-background pt-32 pb-20 md:pb-28">
           <div className="max-w-6xl mx-auto px-6 lg:px-10 relative">
             <div className="max-w-3xl">
               <p className="font-sans text-sm font-semibold text-secondary uppercase tracking-widest mb-4">About Famva</p>
-              <h1 className="font-serif font-bold text-4xl lg:text-5xl text-white text-balance leading-tight">
+              <h1 className="font-serif font-bold text-4xl lg:text-5xl text-balance leading-tight">
                 We believe distance should never mean{" "}
                 <span className="text-secondary">abandonment.</span>
               </h1>
-              <p className="mt-6 font-sans text-lg text-white/70 leading-relaxed max-w-2xl">
+              <p className="mt-6 font-sans text-lg text-foreground/70 leading-relaxed max-w-2xl">
                 Famva was born from a deeply personal truth: millions of Nigerian professionals in the UK love their parents fiercely, but lack the tools to translate that love into daily care. We are building the bridge that should have always existed.
               </p>
             </div>
@@ -70,7 +62,7 @@ export default function AboutPage() {
         </section>
 
         {/* Mission + Vision */}
-        <section className="bg-[#F2F2F2] py-20 md:py-28">
+        <section className="bg-background pb-20">
           <div className="max-w-6xl mx-auto px-6 lg:px-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="bg-white rounded-[16px] p-8 border border-[#e0e0e8] shadow-sm">
@@ -79,7 +71,7 @@ export default function AboutPage() {
                 </div>
                 <h2 className="font-serif font-bold text-xl text-primary mb-3">Our Mission</h2>
                 <p className="font-sans text-sm text-primary/70 leading-relaxed">
-                  To empower diaspora families with intelligent, culturally sensitive wellness tools that give elderly parents in Nigeria the daily support they deserve — and give their children in the UK the visibility and peace of mind they need to thrive.
+                  To empower diaspora families with intelligent, culturally sensitive wellness tools that give elderly parents in Nigeria the daily support they deserve, and give their children in the UK the visibility and peace of mind they need to thrive.
                 </p>
               </div>
               <div className="bg-primary rounded-[16px] p-8">
@@ -88,7 +80,7 @@ export default function AboutPage() {
                 </div>
                 <h2 className="font-serif font-bold text-xl text-white mb-3">Our Vision</h2>
                 <p className="font-sans text-sm text-white/70 leading-relaxed">
-                  A world where no elderly parent feels abandoned because their children live abroad — and no adult child feels helpless because they cannot be physically present. Famva is the care layer that makes this possible.
+                  A world where no elderly parent feels abandoned because their children live abroad, and no adult child feels helpless because they cannot be physically present. Famva is the care layer that makes this possible.
                 </p>
               </div>
             </div>
@@ -106,18 +98,18 @@ export default function AboutPage() {
                 </h2>
                 <div className="mt-6 space-y-4 font-sans text-sm text-primary/70 leading-relaxed">
                   <p>
-                    The idea for Famva came from a simple, painful reality: watching friends and colleagues in the UK manage the anxiety of not knowing how their elderly parents in Nigeria were doing each day — relying on infrequent phone calls and hoping for the best.
+                    The idea for Famva came from a simple, painful reality: watching friends and colleagues in the UK manage the anxiety of not knowing how their elderly parents in Nigeria were doing each day, relying on infrequent phone calls and hoping for the best.
                   </p>
                   <p>
-                    Over $21 billion in remittances flow from the UK to Nigeria annually. But money cannot take medication. Money cannot walk with someone every morning. Money cannot catch the early signs of a health decline before it becomes an emergency.
+                    More than $21 billion is sent from the UK to Nigeria each year in remittances. While this financial support is vital, care often involves more than money alone, it includes helping with daily routines, offering companionship, and noticing early changes in health before they become serious concerns.
                   </p>
                   <p>
-                    We set out to build what the Nigerian diaspora community has always needed: an intelligent, accessible, culturally respectful care platform designed not for Western markets, but for African families — wherever they are in the world.
+                    We set out to build what the Nigerian diaspora community has always needed: an intelligent, accessible, culturally respectful care platform designed not for Western markets, but for African families, wherever they are in the world.
                   </p>
                 </div>
               </div>
               <div className="flex-1 w-full max-w-sm lg:max-w-none">
-                <div className="relative rounded-2xl overflow-hidden h-80 lg:h-[400px] shadow-xl shadow-primary/15">
+                <div className="relative rounded-2xl overflow-hidden h-80 lg:h-100 shadow-xl shadow-primary/15">
                   <Image
                     src="/images/elderly-man.jpg"
                     alt="Elderly Nigerian man enjoying wellness and health outdoors"
@@ -131,7 +123,7 @@ export default function AboutPage() {
         </section>
 
         {/* Values */}
-        <section className="bg-[#F2F2F2] py-20 md:py-28">
+        <section className="bg-background py-20 md:py-28">
           <div className="max-w-6xl mx-auto px-6 lg:px-10">
             <div className="text-center max-w-2xl mx-auto mb-16">
               <p className="font-sans text-sm font-semibold text-secondary uppercase tracking-widest mb-3">Our Values</p>
@@ -143,7 +135,7 @@ export default function AboutPage() {
               {values.map(({ icon: Icon, title, description }) => (
                 <div
                   key={title}
-                  className="bg-white rounded-[12px] p-6 border border-[#e0e0e8] flex items-start gap-5 shadow-sm"
+                  className="bg-white rounded-lg p-6 border border-[#e0e0e8] flex items-start gap-5 shadow-sm"
                 >
                   <div className="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center shrink-0">
                     <Icon size={18} className="text-secondary" />
@@ -175,7 +167,7 @@ export default function AboutPage() {
                   Professionals aged 35–50 managing careers in the UK while remotely overseeing the health of elderly parents in Nigeria. Tech-savvy, caring, and desperate for visibility beyond weekly calls.
                 </p>
                 <ul className="flex flex-col gap-2">
-                  {["London, Manchester, Birmingham", "Healthcare, tech, finance professionals", "Sending £200–500+ monthly"].map((item) => (
+                  {["London, Manchester, Birmingham", "Healthcare, tech, finance professionals"].map((item) => (
                     <li key={item} className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0" aria-hidden="true" />
                       <span className="font-sans text-xs text-white/60">{item}</span>
@@ -187,10 +179,10 @@ export default function AboutPage() {
                 <p className="font-serif font-bold text-5xl text-secondary/30 leading-none mb-4">02</p>
                 <h3 className="font-serif font-semibold text-xl text-white mb-3">Elderly Parents in Nigeria</h3>
                 <p className="font-sans text-sm text-white/65 leading-relaxed mb-5">
-                  Adults aged 65–80+ in both urban and rural Nigeria, managing chronic conditions like hypertension and diabetes. Variable digital literacy — Famva is built for all of them.
+                  Adults aged 65–80+ in both urban and rural Nigeria, managing chronic conditions like hypertension and diabetes. Variable digital literacy, Famva is built for all of them.
                 </p>
                 <ul className="flex flex-col gap-2">
-                  {["Urban and rural Nigeria", "Managing hypertension, diabetes, arthritis", "Basic to moderate smartphone users"].map((item) => (
+                  {["Urban and rural Nigeria", "Managing hypertension, diabetes, arthritis"].map((item) => (
                     <li key={item} className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0" aria-hidden="true" />
                       <span className="font-sans text-xs text-white/60">{item}</span>
@@ -213,7 +205,7 @@ export default function AboutPage() {
             </p>
             <Link
               href="/waitlist"
-              className="mt-7 inline-flex items-center justify-center gap-2 px-8 py-4 rounded-[8px] bg-white text-secondary font-sans font-bold text-sm hover:bg-[#F2F2F2] transition-colors duration-200"
+              className="mt-7 inline-flex items-center justify-center gap-2 px-8 py-4 rounded-md bg-white text-secondary font-sans font-bold text-sm hover:bg-background transition-colors duration-200"
             >
               Join the Waitlist
               <ArrowRight size={16} />

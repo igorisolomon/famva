@@ -53,14 +53,6 @@ export default function WaitlistPage() {
       <main>
         {/* Hero */}
         <section className="bg-background pt-32 pb-20 md:pb-24">
-          {/* <div
-            className="absolute inset-0 opacity-[0.04] pointer-events-none"
-            style={{
-              backgroundImage: `radial-gradient(circle, #FF2E83 1px, transparent 1px)`,
-              backgroundSize: "40px 40px",
-            }}
-            aria-hidden="true"
-          /> */}
           <div className="max-w-6xl mx-auto px-6 lg:px-10 relative">
             <div className="max-w-2xl mx-auto text-center">
               <p className="font-sans text-sm font-semibold text-secondary uppercase tracking-widest mb-4">Early Access</p>
