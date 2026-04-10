@@ -23,7 +23,6 @@ export default function Footer() {
               <ul className="flex flex-col gap-2.5" role="list">
                 <li><Link href="/how-it-works" className="hover:text-secondary transition-colors">How It Works</Link></li>
                 <li><Link href="/about" className="hover:text-secondary transition-colors">About Us</Link></li>
-                <li><Link href="/blog" className="hover:text-secondary transition-colors">Blog</Link></li>
                 <li><Link href="/waitlist" className="hover:text-secondary transition-colors">Join Waitlist</Link></li>
               </ul>
             </div>

@@ -16,7 +16,7 @@ const steps = [
     step: "Step 01",
     title: "Sponsor creates an account",
     description:
-      "The UK-based adult child signs up on Famva, creates a profile for their elderly parent, and enters key health information — diagnosed conditions, medications, mobility level, and dietary preferences.",
+      "The UK-based adult child signs up on Famva, creates a profile for their elderly parent, and enters key health information - diagnosed conditions, medications, mobility level, and dietary preferences.",
     forWho: "UK Sponsor",
     details: [
       "5-minute guided onboarding",
@@ -33,7 +33,7 @@ const steps = [
       "Within minutes, Famva's AI builds a complete suite of personalised wellness resources: a weekly care plan, culturally appropriate Nigerian meal plan, safe exercise routine, and medication schedule.",
     forWho: "AI Engine",
     details: [
-      "Meals featuring egusi, moi moi, jollof rice",
+      "Meals featuring egusi, moi moi, Amala, and more",
       "Exercise adapted to physical ability",
       "Plans refresh when health data changes",
       "Culturally sensitive and medically sound",
@@ -69,48 +69,21 @@ const steps = [
   },
 ]
 
-const faqs = [
-  {
-    q: "Does my parent need a good internet connection?",
-    a: "No. Famva is designed for low-connectivity environments. Core features including the daily task checklist, medication reminders, and meal plans work fully offline.",
-  },
-  {
-    q: "What if my parent is not comfortable with technology?",
-    a: "The elderly app uses large text, simple icons, and minimal navigation — designed for users with basic digital literacy. Most parents are comfortable within their first week.",
-  },
-  {
-    q: "How does the AI create culturally appropriate plans?",
-    a: "Famva's AI is trained on Nigerian dietary data and local health context. Meal plans feature real Nigerian staples adapted for chronic conditions, not generic Western health advice.",
-  },
-  {
-    q: "What health conditions does Famva support?",
-    a: "Famva currently supports hypertension, Type 2 diabetes, arthritis, and post-stroke recovery. We are continuously expanding based on the most common conditions in our user community.",
-  },
-  {
-    q: "Is my family's health data secure?",
-    a: "Yes. Famva is fully GDPR compliant for UK data and NDPR compliant for Nigerian data. All health information is end-to-end encrypted and never sold to third parties.",
-  },
-  {
-    q: "How much does Famva cost?",
-    a: "Famva is free during the beta period for all waitlist members. After launch, subscriptions will start at £9.99/month — less than the cost of one GP appointment.",
-  },
-]
-
 export default function HowItWorksPage() {
   return (
     <>
       <Navbar />
       <main>
         {/* Hero */}
-        <section className="bg-primary pt-32 pb-20 md:pb-24">
+        <section className="bg-background pt-32 pb-20 md:pb-24">
           <div className="max-w-6xl mx-auto px-6 lg:px-10">
             <div className="max-w-3xl">
               <p className="font-sans text-sm font-semibold text-secondary uppercase tracking-widest mb-4">How It Works</p>
-              <h1 className="font-serif font-bold text-4xl lg:text-5xl text-white text-balance leading-tight">
+              <h1 className="font-serif font-bold text-4xl lg:text-5xl text-balance leading-tight">
                 From sign-up to peace of mind{" "}
                 <span className="text-secondary">in four steps.</span>
               </h1>
-              <p className="mt-6 font-sans text-lg text-white/70 leading-relaxed max-w-2xl">
+              <p className="mt-6 font-sans text-lg text-foreground/70 leading-relaxed max-w-2xl">
                 Famva is designed to be set up in minutes and deliver lasting value for years. Here is exactly how it works for both the UK sponsor and their elderly parent in Nigeria.
               </p>
             </div>
@@ -118,13 +91,13 @@ export default function HowItWorksPage() {
         </section>
 
         {/* Steps */}
-        <section className="bg-[#F2F2F2] py-20 md:py-28">
+        <section className="bg-background py-10">
           <div className="max-w-6xl mx-auto px-6 lg:px-10">
             <div className="flex flex-col gap-16">
               {steps.map(({ icon: Icon, step, title, description, forWho, details }, idx) => (
                 <div
                   key={step}
-                  className={`flex flex-col lg:flex-row items-start gap-10 lg:gap-16 ${
+                  className={`flex flex-col lg:flex-row items-center gap-10 lg:gap-16 ${
                     idx % 2 === 1 ? "lg:flex-row-reverse" : ""
                   }`}
                 >
@@ -182,7 +155,7 @@ export default function HowItWorksPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* UK Sponsor */}
-              <div className="bg-[#F2F2F2] rounded-[16px] p-6">
+              <div className="bg-background rounded-[16px] p-6">
                 <p className="font-serif font-semibold text-base text-primary mb-5 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-secondary" aria-hidden="true" />
                   UK Sponsor Journey
@@ -247,7 +220,7 @@ export default function HowItWorksPage() {
             </p>
             <Link
               href="/waitlist"
-              className="mt-7 inline-flex items-center justify-center gap-2 px-8 py-4 rounded-md bg-white text-secondary font-sans font-bold text-sm hover:bg-[#F2F2F2] transition-colors duration-200"
+              className="mt-7 inline-flex items-center justify-center gap-2 px-8 py-4 rounded-md bg-white text-secondary font-sans font-bold text-sm hover:bg-background transition-colors duration-200"
             >
               Join the Waitlist
               <ArrowRight size={16} />
