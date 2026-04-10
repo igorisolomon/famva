@@ -41,12 +41,6 @@ export default function HowItWorksSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map(({ step, title, description }, idx) => (
             <div key={step} className="relative">
-              {idx < steps.length - 1 && (
-                <div
-                  className="hidden lg:block absolute top-7 left-full w-full h-px bg-secondary/20 z-0"
-                  aria-hidden="true"
-                />
-              )}
               <div className="relative z-10 bg-[#3D1870]/50 rounded-lg p-6 border border-white/10 h-full">
                 <p className="font-serif font-bold text-4xl text-secondary/30 mb-4 leading-none">{step}</p>
                 <h3 className="font-serif font-semibold text-base text-white mb-2">{title}</h3>

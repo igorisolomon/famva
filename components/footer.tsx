@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 
 export default function Footer() {
@@ -8,7 +9,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="max-w-xs">
             <Link href="/" className="font-serif font-bold text-2xl text-secondary tracking-tight">
-              Famva
+              <Image src="/logo-dark.png" alt="Famva logo" width={32} height={32} className="inline-block mr-2" />
             </Link>
             <p className="mt-3 text-sm leading-relaxed text-white/60">
               Wellbeing Beyond Borders. AI-powered wellness intelligence for families separated by distance, not love.

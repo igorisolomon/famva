@@ -19,12 +19,6 @@ export default function CtaSection() {
             Join the Waitlist
             <ArrowRight size={16} />
           </Link>
-          <Link
-            href="/how-it-works"
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-md border-2 border-white/40 text-white font-sans font-semibold text-sm hover:border-white transition-colors duration-200 w-full sm:w-auto"
-          >
-            Learn More
-          </Link>
         </div>
       </div>
     </section>
