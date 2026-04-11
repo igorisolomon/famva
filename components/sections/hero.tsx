@@ -42,7 +42,7 @@ export default function HeroSection() {
               <div className="absolute bottom-6 left-6 right-6 bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-sans text-xs text-white/60 mb-0.5">Today&apos;s Wellness Score</p>
+                    <p className="font-sans text-xs text-white/60 mb-0.5">Today's Wellness Score</p>
                     <p className="font-serif font-bold text-2xl text-green-400">
                       94<span className="text-white/60 font-sans font-normal text-sm">/100</span>
                     </p>

@@ -9,7 +9,7 @@ const challenges = [
   {
     icon: Heart,
     title: 'Chronic Conditions',
-    description: '63% of Nigerians over 70 have hypertension, and 10% over 60 have diabetes—often managed without structured support.',
+    description: '63% of Nigerians over 70 have hypertension, and 10% over 60 have diabetes often managed without structured support.',
   },
   {
     icon: AlertTriangle,
@@ -29,10 +29,10 @@ export default function ProblemSection() {
       <div className="max-w-6xl mx-auto text-center">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="font-serif font-bold text-3xl lg:text-4xl text-primary text-balance leading-tight">
-            Distance shouldn&apos;t mean helplessness.
+            Distance shouldn't mean helplessness.
           </h2>
           <p className="mt-5 font-sans text-base text-primary/70 leading-relaxed">
-            Over 200,000 UK-based Nigerians send billions home every year — but financial support alone cannot replace hands-on health management. Traditional care systems are breaking down, and existing health apps simply aren&apos;t built for Nigerian families.
+            Over 200,000 UK-based Nigerians send billions home every year, but financial support alone cannot replace hands-on health management. Traditional care systems are breaking down, and existing health apps simply aren't built for Nigerian families.
           </p>
         </div>
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

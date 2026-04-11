@@ -3,7 +3,7 @@ import { Quote } from "lucide-react"
 export default function TestimonialsSection() {
   const testimonials = [
     {
-      quote: "For the first time, I feel like I actually know how Mum is doing day-to-day — not just when something goes wrong. That&apos;s everything.",
+      quote: "For the first time, I feel like I actually know how Mum is doing day-to-day — not just when something goes wrong. That's everything.",
       name: "Chidera O.",
       role: "Healthcare Administrator, Manchester",
       initials: "CO",

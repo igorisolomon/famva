@@ -46,7 +46,7 @@ export default function FeaturesSection() {
         <div className="text-center max-w-2xl mx-auto mb-16">
           <p className="font-sans text-sm font-semibold text-secondary uppercase tracking-widest mb-3">Features</p>
           <h2 className="font-serif font-bold text-3xl lg:text-4xl text-primary text-balance leading-tight">
-            Everything your family needs. Nothing you don&apos;t.
+            Everything your family needs. Nothing you don't.
           </h2>
           <p className="mt-4 font-sans text-base text-primary/60 leading-relaxed">
             Famva gives UK sponsors real-time peace of mind, while delivering elderly parents a beautifully simple daily wellness companion.

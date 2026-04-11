@@ -121,10 +121,10 @@ export default function WaitlistPage() {
                     </div>
                     <div>
                       <h3 className="font-serif font-bold text-2xl text-primary mb-2">
-                        You&apos;re on the list!
+                        You're on the list!
                       </h3>
                       <p className="font-sans text-sm text-primary/65 leading-relaxed max-w-xs mx-auto">
-                        Thank you, {form.name}. We&apos;ll be in touch as soon as Famva is ready for early access. Watch your inbox.
+                        Thank you, {form.name}. We'll be in touch as soon as Famva is ready for early access. Watch your inbox.
                       </p>
                     </div>
                     <Link

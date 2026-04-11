@@ -42,23 +42,35 @@ export default function SolutionSection() {
               they become emergencies.
             </p>
 
-            {/* Dual App Model */}
-            <div className="mt-10 grid gap-4 sm:grid-cols-2">
-              <div className="bg-primary text-white rounded-2xl p-6">
+            {/* Smart Device and Dual App Model */}
+            <div className="mt-10 grid gap-4 grid-cols-2">
+              {/* Smart Watch - full height left column */}
+              <div className="bg-primary/90 text-white rounded-2xl p-6 flex flex-col justify-between">
                 <h3 className="font-serif font-semibold text-lg text-background mb-2">
-                  Sponsor App (UK)
+                  Smart Watch
                 </h3>
                 <p className="text-sm text-background/70">
-                  Peace of mind dashboard with visibility, predictive alerts, and wellness summaries.
+                  Our custom smartwatch provides continuous vitals monitoring, heart rate, steps, activity, and fall detection.
                 </p>
               </div>
-              <div className="bg-secondary rounded-2xl p-6">
-                <h3 className="font-serif font-semibold text-lg text-white mb-2">
-                  Elderly App (Nigeria)
-                </h3>
-                <p className="text-sm text-white/80">
-                  Simple daily checklist with large text, icons, and offline capability.
-                </p>
+              {/* Mobile Apps - stacked right column */}
+              <div className="flex flex-col gap-4">
+                <div className="bg-secondary rounded-2xl p-6">
+                  <h3 className="font-serif font-semibold text-lg text-white mb-2">
+                    Sponsor App (UK)
+                  </h3>
+                  <p className="text-sm text-white/80">
+                    Peace of mind dashboard with visibility, predictive alerts, and wellness summaries.
+                  </p>
+                </div>
+                <div className="bg-primary rounded-2xl p-6">
+                  <h3 className="font-serif font-semibold text-lg text-background mb-2">
+                    Elderly App (Nigeria)
+                  </h3>
+                  <p className="text-sm text-background/70">
+                    Simple daily checklist with large text, icons, and offline capability.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
