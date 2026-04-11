@@ -22,7 +22,7 @@ export default function Navbar() {
       <nav className="max-w-6xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 shrink-0">
-          <Image src="/logo-dark.png" alt="Famva logo" width={135} height={40}/>
+          <Image src="/logo-dark.png" alt="Famva logo" width={135} height={45} style={{ height: "auto" }} />
         </Link>
 
         {/* Desktop links */}
