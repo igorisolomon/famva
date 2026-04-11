@@ -200,7 +200,7 @@ export default function WaitlistPage() {
                       {/* Location */}
                       <div>
                         <label htmlFor="location" className="block font-sans text-sm font-medium text-primary mb-1.5">
-                          City / Location (UK)
+                          City / Location
                         </label>
                         <input
                           id="location"
@@ -225,7 +225,7 @@ export default function WaitlistPage() {
                       <button
                         type="submit"
                         disabled={state === "submitting"}
-                        className="w-full h-12 rounded-md bg-secondary text-white font-sans font-semibold text-sm hover:bg-[#D9246E] disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center gap-2"
+                        className="w-full h-12 rounded-md bg-primary text-white font-sans font-semibold text-sm hover:bg-[#D9246E] disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center gap-2"
                       >
                         {state === "submitting" ? (
                           <>

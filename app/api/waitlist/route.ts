@@ -14,8 +14,21 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid email address." }, { status: 400 })
     }
 
-    // Log for now — no DB connected
-    console.log("[Famva Waitlist]", { name, email, role, location, submittedAt: new Date().toISOString() })
+    const scriptUrl = process.env.WAITLIST_URL
+    if (!scriptUrl) throw new Error("WAITLIST_URL is not configured")
+
+    const response = await fetch(scriptUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: name.trim(), email: email.trim(), role, location }),
+    })
+
+    if (!response.ok) {
+      throw new Error(`Apps Script responded with ${response.status}`)
+    }
+
+    const result = await response.json()
+    if (result.status === "error") throw new Error(result.message)
 
     return NextResponse.json({ success: true, message: "Added to waitlist." }, { status: 200 })
   } catch {
