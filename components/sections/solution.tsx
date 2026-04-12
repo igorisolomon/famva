@@ -19,7 +19,7 @@ const differentiators = [
   {
     icon: Shield,
     title: "Accessibility-First",
-    description: "Early warning signals sent to UK sponsors before health issues become emergencies, including contributing factors and clear suggested next steps.",
+    description: "Smartwatch streams vitals and user activities, triggering early warning signals to UK sponsors before health issues become emergencies.",
   },
 ]
 
@@ -43,11 +43,11 @@ export default function SolutionSection() {
             </p>
 
             {/* Smart Device and Dual App Model */}
-            <div className="mt-10 grid gap-4 grid-cols-2">
+            <div className="mt-10 grid gap-4 grid-cols-1 sm:grid-cols-2">
               {/* Smart Watch - full height left column */}
               <div className="bg-primary/90 text-white rounded-2xl p-6 flex flex-col justify-between">
                 <h3 className="font-serif font-semibold text-lg text-background mb-2">
-                  Smart Watch
+                  Smart Device
                 </h3>
                 <p className="text-sm text-background/70">
                   Our custom smartwatch provides continuous vitals monitoring, heart rate, steps, activity, and fall detection.

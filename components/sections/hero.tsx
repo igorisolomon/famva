@@ -14,7 +14,7 @@ export default function HeroSection() {
             </h1>
 
             <p className="mt-6 font-sans text-lg text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
-              Monitor and safeguard the wellbeing of your elderly parents with real-time health tracking, intelligent alerts, and AI-powered care plans designed for Nigerian families.
+              Monitor and safeguard the wellbeing of your elderly parents with real-time health tracking, intelligent alerts, and AI-powered care plans designed for Nigerian Diasporans.
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">

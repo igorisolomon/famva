@@ -35,7 +35,7 @@ export default function ProblemSection() {
             Over 200,000 UK-based Nigerians send billions home every year, but financial support alone cannot replace hands-on health management. Traditional care systems are breaking down, and existing health apps simply aren't built for Nigerian families.
           </p>
         </div>
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="mt-12 px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {challenges.map(({ icon: Icon, title, description }) => (
             <div
               key={title}
