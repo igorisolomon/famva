@@ -3,7 +3,16 @@ import Link from "next/link"
 import { ArrowRight, Clock, ChevronLeft, ChevronRight } from "lucide-react"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
-import { blogPosts, POSTS_PER_PAGE } from "@/lib/blog-data"
+import {
+  getPublishedBlogPosts,
+  getFeaturedPost,
+  POSTS_PER_PAGE,
+  getAuthorInitials,
+  estimateReadTime,
+  formatPublishedDate,
+} from "@/lib/contentful"
+
+export const revalidate = 3600
 
 interface BlogPageProps {
   searchParams: Promise<{ page?: string }>
@@ -19,15 +28,22 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   const { page } = await searchParams
   const currentPage = Math.max(1, parseInt(page ?? "1", 10))
 
-  const featured = blogPosts.find((p) => p.featured)!
-  const allOthers = blogPosts.filter((p) => !p.featured)
+  const [featured, allPosts] = await Promise.all([
+    getFeaturedPost(),
+    getPublishedBlogPosts(),
+  ])
+
+  const featuredId = featured?.id
+  const allOthers = allPosts.filter((p) => p.id !== featuredId)
+  const displayFeatured = featured ?? allPosts[0] ?? null
+
   const totalPages = Math.ceil(allOthers.length / POSTS_PER_PAGE)
   const paginatedPosts = allOthers.slice(
     (currentPage - 1) * POSTS_PER_PAGE,
     currentPage * POSTS_PER_PAGE
   )
 
-  const categories = Array.from(new Set(blogPosts.map((p) => p.category)))
+  const allTags = Array.from(new Set(allPosts.flatMap((p) => p.tags)))
 
   return (
     <>
@@ -48,98 +64,109 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
               </p>
             </div>
 
-            {/* Category pills */}
-            <div className="mt-10 flex flex-wrap gap-2" role="list" aria-label="Blog categories">
-              <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-secondary text-white font-sans text-xs font-semibold">
-                All
-              </span>
-              {categories.map((cat) => (
-                <span
-                  key={cat}
-                  className="inline-flex items-center px-4 py-1.5 rounded-full border border-white/20 text-white/60 font-sans text-xs font-medium hover:border-secondary/60 hover:text-secondary transition-colors duration-200 cursor-pointer"
-                >
-                  {cat}
+            {/* Tag pills */}
+            {allTags.length > 0 && (
+              <div className="mt-10 flex flex-wrap gap-2">
+                <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-secondary text-white font-sans text-xs font-semibold">
+                  All
                 </span>
-              ))}
-            </div>
+                {allTags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center px-4 py-1.5 rounded-full border border-white/20 text-white/60 font-sans text-xs font-medium hover:border-secondary/60 hover:text-secondary transition-colors duration-200 cursor-pointer"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         </section>
 
         {/* ── Featured Post ────────────────────────────────────── */}
-        <section className="bg-white py-16 border-b border-[#e0e0e8]">
-          <div className="max-w-6xl mx-auto px-6 lg:px-10">
-            <p className="font-sans text-xs font-semibold text-secondary uppercase tracking-widest mb-6">
-              Featured Article
-            </p>
-            <Link
-              href={`/blog/${featured.slug}`}
-              className="group grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
-            >
-              {/* Image */}
-              <div className="relative rounded-[16px] overflow-hidden h-72 lg:h-[400px] shadow-lg shadow-primary/10">
-                <Image
-                  src={featured.image}
-                  alt={featured.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  priority
-                />
-                <div className="absolute inset-0 bg-primary/15" aria-hidden="true" />
-                <span className="absolute top-5 left-5 inline-flex items-center px-3 py-1.5 rounded-full bg-secondary text-white font-sans text-xs font-semibold shadow">
-                  Featured
-                </span>
-              </div>
-
-              {/* Content */}
-              <div>
-                <span className="inline-block font-sans text-xs font-semibold text-secondary uppercase tracking-widest mb-3">
-                  {featured.category}
-                </span>
-                <h2 className="font-serif font-bold text-2xl lg:text-3xl text-primary text-balance leading-snug group-hover:text-secondary transition-colors duration-200 mb-4">
-                  {featured.title}
-                </h2>
-                <p className="font-sans text-sm text-primary/65 leading-relaxed mb-6">
-                  {featured.excerpt}
-                </p>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className="w-10 h-10 rounded-full bg-primary flex items-center justify-center shrink-0"
-                      aria-hidden="true"
-                    >
-                      <span className="font-serif font-bold text-xs text-secondary">
-                        {featured.authorInitials}
-                      </span>
-                    </div>
-                    <div>
-                      <p className="font-sans font-semibold text-sm text-primary">
-                        {featured.author}
-                      </p>
-                      <p className="font-sans text-xs text-primary/50">
-                        {featured.authorRole}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4 text-primary/40">
-                    <div className="flex items-center gap-1.5">
-                      <Clock size={13} />
-                      <span className="font-sans text-xs">{featured.readTime}</span>
-                    </div>
-                    <span className="font-sans text-xs">{featured.date}</span>
-                  </div>
-                </div>
-
-                <div className="mt-6">
-                  <span className="inline-flex items-center gap-2 font-sans font-semibold text-sm text-secondary group-hover:gap-3 transition-all duration-200">
-                    Read article
-                    <ArrowRight size={15} />
+        {displayFeatured && (
+          <section className="bg-white py-16 border-b border-[#e0e0e8]">
+            <div className="max-w-6xl mx-auto px-6 lg:px-10">
+              <p className="font-sans text-xs font-semibold text-secondary uppercase tracking-widest mb-6">
+                Featured Article
+              </p>
+              <Link
+                href={`/blog/${displayFeatured.slug}`}
+                className="group grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
+              >
+                {/* Image */}
+                <div className="relative rounded-[16px] overflow-hidden h-72 lg:h-[400px] shadow-lg shadow-primary/10 bg-primary/10">
+                  {displayFeatured.featuredImageUrl ? (
+                    <Image
+                      src={displayFeatured.featuredImageUrl}
+                      alt={displayFeatured.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      priority
+                    />
+                  ) : null}
+                  <div className="absolute inset-0 bg-primary/15" aria-hidden="true" />
+                  <span className="absolute top-5 left-5 inline-flex items-center px-3 py-1.5 rounded-full bg-secondary text-white font-sans text-xs font-semibold shadow">
+                    Featured
                   </span>
                 </div>
-              </div>
-            </Link>
-          </div>
-        </section>
+
+                {/* Content */}
+                <div>
+                  {displayFeatured.tags[0] && (
+                    <span className="inline-block font-sans text-xs font-semibold text-secondary uppercase tracking-widest mb-3">
+                      {displayFeatured.tags[0]}
+                    </span>
+                  )}
+                  <h2 className="font-serif font-bold text-2xl lg:text-3xl text-primary text-balance leading-snug group-hover:text-secondary transition-colors duration-200 mb-4">
+                    {displayFeatured.title}
+                  </h2>
+                  <p className="font-sans text-sm text-primary/65 leading-relaxed mb-6">
+                    {displayFeatured.excerpt}
+                  </p>
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div
+                        className="w-10 h-10 rounded-full bg-primary flex items-center justify-center shrink-0"
+                        aria-hidden="true"
+                      >
+                        <span className="font-serif font-bold text-xs text-secondary">
+                          {getAuthorInitials(displayFeatured.author?.name ?? "FA")}
+                        </span>
+                      </div>
+                      <div>
+                        <p className="font-sans font-semibold text-sm text-primary">
+                          {displayFeatured.author?.name ?? "Famva"}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4 text-primary/40">
+                      <div className="flex items-center gap-1.5">
+                        <Clock size={13} />
+                        <span className="font-sans text-xs">
+                          {estimateReadTime(displayFeatured.content)}
+                        </span>
+                      </div>
+                      {displayFeatured.publishedDate && (
+                        <span className="font-sans text-xs">
+                          {formatPublishedDate(displayFeatured.publishedDate)}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="mt-6">
+                    <span className="inline-flex items-center gap-2 font-sans font-semibold text-sm text-secondary group-hover:gap-3 transition-all duration-200">
+                      Read article
+                      <ArrowRight size={15} />
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </section>
+        )}
 
         {/* ── All Posts Grid + Pagination ──────────────────────── */}
         <section className="bg-[#F2F2F2] py-16 md:py-24">
@@ -162,23 +189,27 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
               {paginatedPosts.map((post) => (
                 <Link
-                  key={post.slug}
+                  key={post.id}
                   href={`/blog/${post.slug}`}
                   className="group bg-white rounded-[16px] overflow-hidden border border-[#e0e0e8] shadow-sm hover:shadow-md hover:border-secondary/30 transition-all duration-300 flex flex-col"
                 >
-                  <div className="relative h-52 overflow-hidden">
-                    <Image
-                      src={post.image}
-                      alt={post.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
+                  <div className="relative h-52 overflow-hidden bg-primary/10">
+                    {post.featuredImageUrl && (
+                      <Image
+                        src={post.featuredImageUrl}
+                        alt={post.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    )}
                     <div className="absolute inset-0 bg-primary/10" aria-hidden="true" />
                   </div>
                   <div className="flex flex-col flex-1 p-6">
-                    <span className="font-sans text-xs font-semibold text-secondary uppercase tracking-widest mb-2">
-                      {post.category}
-                    </span>
+                    {post.tags[0] && (
+                      <span className="font-sans text-xs font-semibold text-secondary uppercase tracking-widest mb-2">
+                        {post.tags[0]}
+                      </span>
+                    )}
                     <h3 className="font-serif font-bold text-lg text-primary text-balance leading-snug group-hover:text-secondary transition-colors duration-200 mb-3">
                       {post.title}
                     </h3>
@@ -192,17 +223,23 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                           aria-hidden="true"
                         >
                           <span className="font-serif font-bold text-xs text-secondary">
-                            {post.authorInitials}
+                            {getAuthorInitials(post.author?.name ?? "FA")}
                           </span>
                         </div>
                         <div>
-                          <p className="font-sans font-semibold text-xs text-primary">{post.author}</p>
-                          <p className="font-sans text-xs text-primary/40">{post.date}</p>
+                          <p className="font-sans font-semibold text-xs text-primary">
+                            {post.author?.name ?? "Famva"}
+                          </p>
+                          {post.publishedDate && (
+                            <p className="font-sans text-xs text-primary/40">
+                              {formatPublishedDate(post.publishedDate)}
+                            </p>
+                          )}
                         </div>
                       </div>
                       <div className="flex items-center gap-1.5 text-primary/40">
                         <Clock size={12} />
-                        <span className="font-sans text-xs">{post.readTime}</span>
+                        <span className="font-sans text-xs">{estimateReadTime(post.content)}</span>
                       </div>
                     </div>
                   </div>
