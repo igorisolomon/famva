@@ -31,6 +31,7 @@ export default function Footer() {
               <ul className="flex flex-col gap-2.5" role="list">
                 <li><Link href="/about" className="hover:text-secondary transition-colors">Our Mission</Link></li>
                 <li><a href="mailto:hello@famva.com" className="hover:text-secondary transition-colors">Contact</a></li>
+                <li><Link href="/blog" className="hover:text-secondary transition-colors">Blog</Link></li>
               </ul>
             </div>
             <div>

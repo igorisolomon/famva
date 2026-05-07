@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Clock, ChevronLeft, ChevronRight } from "lucide-react"
+import { ArrowRight, Clock, ChevronLeft, ChevronRight, Search } from "lucide-react"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import {
@@ -15,7 +15,7 @@ import {
 export const revalidate = 3600
 
 interface BlogPageProps {
-  searchParams: Promise<{ page?: string }>
+  searchParams: Promise<{ page?: string; q?: string }>
 }
 
 export const metadata = {
@@ -25,7 +25,8 @@ export const metadata = {
 }
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
-  const { page } = await searchParams
+  const { page, q } = await searchParams
+  const query = q?.trim().toLowerCase() ?? ""
   const currentPage = Math.max(1, parseInt(page ?? "1", 10))
 
   const [featured, allPosts] = await Promise.all([
@@ -37,10 +38,20 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   const allOthers = allPosts.filter((p) => p.id !== featuredId)
   const displayFeatured = featured ?? allPosts[0] ?? null
 
-  const totalPages = Math.ceil(allOthers.length / POSTS_PER_PAGE)
-  const paginatedPosts = allOthers.slice(
-    (currentPage - 1) * POSTS_PER_PAGE,
-    currentPage * POSTS_PER_PAGE
+  const filteredPosts = query
+    ? allOthers.filter(
+        (p) =>
+          p.title.toLowerCase().includes(query) ||
+          p.excerpt.toLowerCase().includes(query) ||
+          p.tags.some((t) => t.toLowerCase().includes(query))
+      )
+    : allOthers
+
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE)
+  const safePage = Math.min(currentPage, Math.max(1, totalPages))
+  const paginatedPosts = filteredPosts.slice(
+    (safePage - 1) * POSTS_PER_PAGE,
+    safePage * POSTS_PER_PAGE
   )
 
   const allTags = Array.from(new Set(allPosts.flatMap((p) => p.tags)))
@@ -50,30 +61,44 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
       <Navbar />
       <main>
         {/* ── Page Header ─────────────────────────────────────── */}
-        <section className="bg-primary pt-32 pb-16">
+        {displayFeatured && (<section className="bg-background pt-32 pb-16">
           <div className="max-w-6xl mx-auto px-6 lg:px-10">
-            <div className="max-w-2xl">
+            <div className="max-w-4xl">
               <p className="font-sans text-sm font-semibold text-secondary uppercase tracking-widest mb-4">
                 The Famva Blog
               </p>
-              <h1 className="font-serif font-bold text-4xl lg:text-5xl text-white text-balance leading-tight">
+              <h1 className="font-serif font-bold text-4xl lg:text-5xl text-gray-900 text-balance leading-tight">
                 Insights for families separated by distance, not love.
               </h1>
-              <p className="mt-5 font-sans text-base text-white/60 leading-relaxed max-w-lg">
+              <p className="mt-5 font-sans text-base text-gray-900/60 leading-relaxed max-w-lg">
                 Health guidance, caregiving stories, and practical tools for UK Nigerian families caring for elderly parents back home.
               </p>
             </div>
 
+            {/* Search */}
+            {/* <form action="/blog" method="GET" className="mt-8 max-w-md">
+              <div className="relative">
+                <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                <input
+                  type="search"
+                  name="q"
+                  defaultValue={q}
+                  placeholder="Search articles…"
+                  className="w-full pl-11 pr-4 py-3 rounded-[10px] border border-[#e0e0e8] bg-white font-sans text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-colors"
+                />
+              </div>
+            </form> */}
+
             {/* Tag pills */}
-            {allTags.length > 0 && (
+            {false && (allTags.length > 0) && (
               <div className="mt-10 flex flex-wrap gap-2">
-                <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-secondary text-white font-sans text-xs font-semibold">
+                <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-secondary text-gray-900 font-sans text-xs font-semibold">
                   All
                 </span>
                 {allTags.map((tag) => (
                   <span
                     key={tag}
-                    className="inline-flex items-center px-4 py-1.5 rounded-full border border-white/20 text-white/60 font-sans text-xs font-medium hover:border-secondary/60 hover:text-secondary transition-colors duration-200 cursor-pointer"
+                    className="inline-flex items-center px-4 py-1.5 rounded-full border border-graytext-gray-900/20 text-gray-900/60 font-sans text-xs font-medium hover:border-secondary/60 hover:text-secondary transition-colors duration-200 cursor-pointer"
                   >
                     {tag}
                   </span>
@@ -81,11 +106,11 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
               </div>
             )}
           </div>
-        </section>
+        </section>)}
 
         {/* ── Featured Post ────────────────────────────────────── */}
         {displayFeatured && (
-          <section className="bg-white py-16 border-b border-[#e0e0e8]">
+          <section className="bg-background pb-16 border-b border-[#e0e0e8]">
             <div className="max-w-6xl mx-auto px-6 lg:px-10">
               <p className="font-sans text-xs font-semibold text-secondary uppercase tracking-widest mb-6">
                 Featured Article
@@ -169,21 +194,31 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         )}
 
         {/* ── All Posts Grid + Pagination ──────────────────────── */}
-        <section className="bg-[#F2F2F2] py-16 md:py-24">
+        <section className="bg-white py-16 md:py-24">
           <div className="max-w-6xl mx-auto px-6 lg:px-10">
             <div className="flex items-center justify-between mb-10">
               <h2 className="font-serif font-bold text-xl text-primary">
-                All Articles
+                {query ? "Search Results" : "All Articles"}
                 <span className="font-sans font-normal text-sm text-primary/40 ml-2">
-                  ({allOthers.length} posts)
+                  ({filteredPosts.length} {filteredPosts.length === 1 ? "post" : "posts"})
                 </span>
               </h2>
               {totalPages > 1 && (
                 <p className="font-sans text-xs text-primary/50">
-                  Page {currentPage} of {totalPages}
+                  Page {safePage} of {totalPages}
                 </p>
               )}
             </div>
+
+            {/* Empty state */}
+            {paginatedPosts.length === 0 && (
+              <div className="py-20 text-center">
+                <p className="font-serif text-lg text-primary/50">No articles found for &ldquo;{q}&rdquo;.</p>
+                <Link href="/blog" className="mt-4 inline-block font-sans text-sm text-secondary hover:underline">
+                  Clear search
+                </Link>
+              </div>
+            )}
 
             {/* Posts grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
@@ -253,9 +288,9 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                 className="mt-12 flex items-center justify-center gap-2"
                 aria-label="Blog pagination"
               >
-                {currentPage > 1 ? (
+                {safePage > 1 ? (
                   <Link
-                    href={`/blog?page=${currentPage - 1}`}
+                    href={`/blog?page=${safePage - 1}${query ? `&q=${encodeURIComponent(q!)}` : ""}`}
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-[8px] border border-[#e0e0e8] bg-white text-primary font-sans text-sm font-medium hover:border-secondary hover:text-secondary transition-colors duration-200"
                   >
                     <ChevronLeft size={15} />
@@ -272,22 +307,22 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
                     <Link
                       key={p}
-                      href={`/blog?page=${p}`}
+                      href={`/blog?page=${p}${query ? `&q=${encodeURIComponent(q!)}` : ""}`}
                       className={`w-9 h-9 rounded-[8px] flex items-center justify-center font-sans text-sm font-medium transition-colors duration-200 ${
-                        p === currentPage
+                        p === safePage
                           ? "bg-secondary text-white"
                           : "bg-white border border-[#e0e0e8] text-primary hover:border-secondary hover:text-secondary"
                       }`}
-                      aria-current={p === currentPage ? "page" : undefined}
+                      aria-current={p === safePage ? "page" : undefined}
                     >
                       {p}
                     </Link>
                   ))}
                 </div>
 
-                {currentPage < totalPages ? (
+                {safePage < totalPages ? (
                   <Link
-                    href={`/blog?page=${currentPage + 1}`}
+                    href={`/blog?page=${safePage + 1}${query ? `&q=${encodeURIComponent(q!)}` : ""}`}
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-[8px] border border-[#e0e0e8] bg-white text-primary font-sans text-sm font-medium hover:border-secondary hover:text-secondary transition-colors duration-200"
                   >
                     Next

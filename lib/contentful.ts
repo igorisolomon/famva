@@ -1,7 +1,7 @@
 import { createClient } from "contentful"
 import type { Document } from "@contentful/rich-text-types"
 
-export const POSTS_PER_PAGE = 4
+export const POSTS_PER_PAGE = 6
 
 function getClient() {
   const space = process.env.CONTENTFUL_SPACE_ID
