@@ -62,11 +62,11 @@ export default async function BlogPostPage({ params }: Props) {
       <Navbar />
       <main>
         {/* ── Hero ──────────────────────────────────────────────── */}
-        <section className="bg-primary pt-28 pb-0">
+        <section className="bg-background pt-28 pb-0">
           <div className="max-w-4xl mx-auto px-6 lg:px-10 pt-8 pb-0">
             <Link
               href="/blog"
-              className="inline-flex items-center gap-1.5 font-sans text-sm text-white/50 hover:text-secondary transition-colors duration-200 mb-8"
+              className="inline-flex items-center gap-1.5 font-sans text-sm text-gray/50 hover:text-secondary transition-colors duration-200 mb-8"
             >
               <ArrowLeft size={14} />
               Back to Blog
@@ -78,7 +78,7 @@ export default async function BlogPostPage({ params }: Props) {
               </span>
             )}
 
-            <h1 className="font-serif font-bold text-3xl lg:text-4xl xl:text-5xl text-white text-balance leading-tight mb-6">
+            <h1 className="font-serif font-bold text-3xl lg:text-4xl xl:text-5xl text-gray text-balance leading-tight mb-6">
               {post.title}
             </h1>
 
@@ -105,12 +105,12 @@ export default async function BlogPostPage({ params }: Props) {
                   </div>
                 )}
                 <div>
-                  <p className="font-sans font-semibold text-sm text-white">
+                  <p className="font-sans font-semibold text-sm text-gray">
                     {post.author?.name ?? "Famva"}
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-4 text-white/40">
+              <div className="flex items-center gap-4 text-gray/40">
                 <div className="flex items-center gap-1.5">
                   <Clock size={13} />
                   <span className="font-sans text-xs">{readTime}</span>
@@ -125,7 +125,7 @@ export default async function BlogPostPage({ params }: Props) {
 
         {/* ── Hero Image ────────────────────────────────────────── */}
         {post.featuredImageUrl && (
-          <div className="bg-primary">
+          <div className="bg-background pb-16">
             <div className="max-w-4xl mx-auto px-6 lg:px-10">
               <div className="relative h-72 lg:h-105 rounded-b-[20px] overflow-hidden shadow-2xl shadow-black/30">
                 <Image
