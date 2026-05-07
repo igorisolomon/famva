@@ -40,11 +40,11 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
   const filteredPosts = query
     ? allOthers.filter(
-        (p) =>
-          p.title.toLowerCase().includes(query) ||
-          p.excerpt.toLowerCase().includes(query) ||
-          p.tags.some((t) => t.toLowerCase().includes(query))
-      )
+      (p) =>
+        p.title.toLowerCase().includes(query) ||
+        p.excerpt.toLowerCase().includes(query) ||
+        p.tags.some((t) => t.toLowerCase().includes(query))
+    )
     : allOthers
 
   const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE)
@@ -61,7 +61,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
       <Navbar />
       <main>
         {/* ── Page Header ─────────────────────────────────────── */}
-        {displayFeatured && (<section className="bg-background pt-32 pb-16">
+        <section className="bg-background pt-32 pb-16">
           <div className="max-w-6xl mx-auto px-6 lg:px-10">
             <div className="max-w-4xl">
               <p className="font-sans text-sm font-semibold text-secondary uppercase tracking-widest mb-4">
@@ -76,7 +76,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             </div>
 
             {/* Search */}
-            {/* <form action="/blog" method="GET" className="mt-8 max-w-md">
+            <form action="/blog" method="GET" className="mt-8 max-w-md">
               <div className="relative">
                 <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
                 <input
@@ -87,7 +87,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                   className="w-full pl-11 pr-4 py-3 rounded-[10px] border border-[#e0e0e8] bg-white font-sans text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-colors"
                 />
               </div>
-            </form> */}
+            </form>
 
             {/* Tag pills */}
             {false && (allTags.length > 0) && (
@@ -106,7 +106,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
               </div>
             )}
           </div>
-        </section>)}
+        </section>
 
         {/* ── Featured Post ────────────────────────────────────── */}
         {displayFeatured && (
@@ -213,10 +213,14 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             {/* Empty state */}
             {paginatedPosts.length === 0 && (
               <div className="py-20 text-center">
-                <p className="font-serif text-lg text-primary/50">No articles found for &ldquo;{q}&rdquo;.</p>
-                <Link href="/blog" className="mt-4 inline-block font-sans text-sm text-secondary hover:underline">
-                  Clear search
-                </Link>
+
+                {!q ?
+                  <p className="font-serif text-lg text-primary/50">No articles posted.</p> :
+                  <>
+                    <p className="font-serif text-lg text-primary/50">No articles found for &ldquo;{q}&rdquo;.</p>
+                    <Link href="/blog" className="mt-4 inline-block font-sans text-sm text-secondary hover:underline">
+                      Clear search
+                    </Link></>}
               </div>
             )}
 
@@ -308,11 +312,10 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                     <Link
                       key={p}
                       href={`/blog?page=${p}${query ? `&q=${encodeURIComponent(q!)}` : ""}`}
-                      className={`w-9 h-9 rounded-[8px] flex items-center justify-center font-sans text-sm font-medium transition-colors duration-200 ${
-                        p === safePage
-                          ? "bg-secondary text-white"
-                          : "bg-white border border-[#e0e0e8] text-primary hover:border-secondary hover:text-secondary"
-                      }`}
+                      className={`w-9 h-9 rounded-[8px] flex items-center justify-center font-sans text-sm font-medium transition-colors duration-200 ${p === safePage
+                        ? "bg-secondary text-white"
+                        : "bg-white border border-[#e0e0e8] text-primary hover:border-secondary hover:text-secondary"
+                        }`}
                       aria-current={p === safePage ? "page" : undefined}
                     >
                       {p}
