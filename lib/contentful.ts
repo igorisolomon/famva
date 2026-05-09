@@ -29,7 +29,6 @@ export interface ContentfulBlogPost {
   publishedDate?: string
   featuredImageUrl?: string
   relatedBlogPosts?: ContentfulBlogPost[]
-  isPublished: boolean
 }
 
 export function getAuthorInitials(name: string): string {
@@ -93,7 +92,6 @@ function mapBlogPost(entry: any): ContentfulBlogPost {
     relatedBlogPosts: Array.isArray(f.relatedBlogPosts)
       ? f.relatedBlogPosts.filter((r: any) => r?.sys && r?.fields).map(mapBlogPost)
       : [],
-    isPublished: f.isPublished ?? false,
   }
 }
 
@@ -101,7 +99,6 @@ export async function getPublishedBlogPosts(): Promise<ContentfulBlogPost[]> {
   const client = getClient()
   const res = await client.getEntries({
     content_type: "headlessBlogPost",
-    "fields.isPublished": true,
     order: ["-fields.publishedDate"] as any,
     include: 2,
   } as any)
