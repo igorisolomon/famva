@@ -133,8 +133,7 @@ export async function getFeaturedPost(): Promise<ContentfulBlogPost | null> {
 export async function getAllPublishedSlugs(): Promise<string[]> {
   const client = getClient()
   const res = await client.getEntries({
-    content_type: "headlessBlogPost",
-    "fields.isPublished": true,
+    content_type: "headlessBlogPost"
   } as any)
   return res.items.map((e: any) => e.fields.slug).filter(Boolean) as string[]
 }
