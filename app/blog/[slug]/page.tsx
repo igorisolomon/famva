@@ -72,6 +72,8 @@ export default async function BlogPostPage({ params }: Props) {
               Back to Blog
             </Link>
 
+            <br/>
+
             {post.tags[0] && (
               <span className="inline-block font-sans text-xs font-semibold text-secondary uppercase tracking-widest mb-4">
                 {post.tags[0]}
