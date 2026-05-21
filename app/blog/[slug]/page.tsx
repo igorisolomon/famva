@@ -29,8 +29,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${post.title} — Famva Blog`,
     description: post.excerpt,
-    openGraph: post.featuredImageUrl
-      ? { images: [{ url: post.featuredImageUrl }] }
+    openGraph: post.featuredImageSmallUrl
+      ? { images: [{ url: post.featuredImageSmallUrl, width: 1200, height: 630 }] }
       : undefined,
   }
 }

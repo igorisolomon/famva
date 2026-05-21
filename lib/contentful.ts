@@ -28,6 +28,7 @@ export interface ContentfulBlogPost {
   author?: ContentfulAuthor
   publishedDate?: string
   featuredImageUrl?: string
+  featuredImageSmallUrl?: string
   relatedBlogPosts?: ContentfulBlogPost[]
 }
 
@@ -68,6 +69,11 @@ function mapAssetUrl(asset: any): string | undefined {
   return url ? `https:${url}` : undefined
 }
 
+function mapAssetUrlSmall(asset: any): string | undefined {
+  const url = asset?.fields?.file?.url
+  return url ? `https:${url}?w=1200&h=630&fit=fill&fm=jpg&q=80` : undefined
+}
+
 function mapAuthor(entry: any): ContentfulAuthor | undefined {
   if (!entry?.fields) return undefined
   return {
@@ -89,6 +95,7 @@ function mapBlogPost(entry: any): ContentfulBlogPost {
     author: mapAuthor(f.author),
     publishedDate: f.publishedDate,
     featuredImageUrl: mapAssetUrl(f.featuredImage),
+    featuredImageSmallUrl: mapAssetUrlSmall(f.featuredImage),
     relatedBlogPosts: Array.isArray(f.relatedBlogPosts)
       ? f.relatedBlogPosts.filter((r: any) => r?.sys && r?.fields).map(mapBlogPost)
       : [],
