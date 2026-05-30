@@ -1,11 +1,14 @@
-import { DEFAULT_DESCRIPTION, DEFAULT_IMAGE, DEFAULT_TITLE, DEFAULT_URL, KEYWORDS } from "@/lib/constants"
-import { Analytics } from '@vercel/analytics/next'
+import { GoogleTagManager } from '@next/third-parties/google';
 import type { Metadata } from 'next'
 import { Inter, Poppins } from 'next/font/google'
 import { headers } from 'next/headers'
 import Script from 'next/script'
 
+import { DEFAULT_DESCRIPTION, DEFAULT_IMAGE, DEFAULT_TITLE, DEFAULT_URL, KEYWORDS } from "@/lib/constants"
+import { RecaptchaProvider } from "@/components/providers/recaptcha-provider";
+
 import './globals.css'
+import { CookieConsentProvider } from '@/components/providers/cookie-consent-provider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -94,10 +97,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`} data-scroll-behavior="smooth">
+      <GoogleTagManager gtmId="G-F8QHLT3ERW" />
       <body className="font-sans antialiased min-h-screen flex flex-col" suppressHydrationWarning>
-        {children}
-        <Analytics />
-        <Script id="meta-pixel" strategy="afterInteractive">{`
+        <RecaptchaProvider>
+          <CookieConsentProvider />
+          {children}
+          <Script id="meta-pixel" strategy="afterInteractive">{`
           !function(f,b,e,v,n,t,s)
           {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
           n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -109,10 +114,11 @@ export default function RootLayout({
           fbq('init', '860619920391247');
           fbq('track', 'PageView');
         `}</Script>
-        <noscript><img height="1" width="1" className="hidden"
-          src="https://www.facebook.com/tr?id=860619920391247&ev=PageView&noscript=1"
-          alt=""
-        /></noscript>
+          <noscript><img height="1" width="1" className="hidden"
+            src="https://www.facebook.com/tr?id=860619920391247&ev=PageView&noscript=1"
+            alt=""
+          /></noscript>
+        </RecaptchaProvider>
       </body>
     </html>
   )
