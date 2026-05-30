@@ -94,7 +94,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`} data-scroll-behavior="smooth">
-      <body className="font-sans antialiased" suppressHydrationWarning>
+      <body className="font-sans antialiased min-h-screen flex flex-col" suppressHydrationWarning>
         {children}
         <Analytics />
         <Script id="meta-pixel" strategy="afterInteractive">{`
