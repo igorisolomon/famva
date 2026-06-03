@@ -1,4 +1,4 @@
-import { GoogleTagManager } from '@next/third-parties/google';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata } from 'next'
 import { Inter, Poppins } from 'next/font/google'
 import { headers } from 'next/headers'
@@ -97,7 +97,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`} data-scroll-behavior="smooth">
-      <GoogleTagManager gtmId="G-F8QHLT3ERW" />
+      <GoogleAnalytics gaId="G-F8QHLT3ERW" />
       <body className="font-sans antialiased min-h-screen flex flex-col" suppressHydrationWarning>
         <RecaptchaProvider>
           <CookieConsentProvider />
